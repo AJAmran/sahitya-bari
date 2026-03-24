@@ -1,0 +1,418 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-bengali: var(--font-bengali);
+
+  --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Overriding Tailwind's default utility classes to match iOS Typography */
+  --text-xs: 0.75rem; /* 12px Caption 1 */
+  --text-xs--line-height: 1.1;
+  --text-sm: 0.8125rem; /* 13px Footnote */
+  --text-sm--line-height: 1.2;
+  --text-base: 0.9375rem; /* 15px Subhead */
+  --text-base--line-height: 1.3;
+  --text-lg: 1.0625rem; /* 17px Body Headline */
+  --text-lg--line-height: 1.4;
+  --text-xl: 1.25rem; /* 20px Title 3 */
+  --text-xl--line-height: 1.4;
+  --text-2xl: 1.375rem; /* 22px Title 2 */
+  --text-2xl--line-height: 1.3;
+  --text-3xl: 1.75rem; /* 28px Title 1 */
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 2.125rem; /* 34px Large Title */
+  --text-4xl--line-height: 1.1;
+  --text-5xl: 2.5rem; /* Capped */
+  --text-5xl--line-height: 1.1;
+  --text-6xl: 2.5rem; /* Capped */
+  --text-6xl--line-height: 1.1;
+  --text-7xl: 2.5rem; /* Capped */
+  --text-7xl--line-height: 1.1;
+  --text-8xl: 2.75rem; /* Capped */
+  --text-8xl--line-height: 1.1;
+  --text-9xl: 2.75rem; /* Capped */
+  --text-9xl--line-height: 1.1;
+}
+
+:root {
+  /* iOS 26 Light Mode Palette (OKLCH) */
+  --background: oklch(98.5% 0.002 247); /* Ultra-clean white/grey */
+  --foreground: oklch(20% 0.01 250); /* Deep charcoal, not black */
+
+  --surface-100: oklch(100% 0 0 / 0.65);
+  --surface-200: oklch(100% 0 0 / 0.85);
+  --surface-300: oklch(100% 0 0);
+
+  --primary: oklch(55% 0.25 260); /* Electric Blue */
+  --secondary: oklch(65% 0.18 310); /* Vivid Purple */
+  --accent: oklch(70% 0.15 30); /* Warm Orange */
+
+  --success: oklch(65% 0.2 150); /* Green */
+  --warning: oklch(75% 0.18 60); /* Yellow */
+  --destructive: oklch(60% 0.22 25); /* Red */
+  --info: oklch(65% 0.2 245); /* Blue Info */
+
+  --glass-border: oklch(100% 0 0 / 0.15);
+  --glass-highlight: oklch(100% 0 0 / 0.4);
+  --glass-shadow: oklch(0% 0 0 / 0.08);
+
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 2rem;
+  --radius-xl: 2.5rem;
+  --radius-2xl: 3.5rem;
+  --radius-3xl: 4.5rem;
+  --radius-full: 9999px;
+
+  /* iOS 26 Fluid Typography System */
+  --text-body: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem); /* 15px -> 17px (iOS Body) */
+  --text-h1: clamp(1.75rem, 1.5rem + 1vw, 2.125rem); /* 28px -> 34px (iOS Large Title) */
+  --text-h2: clamp(1.5rem, 1.3rem + 0.8vw, 1.75rem); /* 24px -> 28px (iOS Title 1) */
+  --text-h3: clamp(1.25rem, 1.1rem + 0.5vw, 1.375rem); /* 20px -> 22px (iOS Title 2) */
+  --text-caption: clamp(0.75rem, 0.7rem + 0.1vw, 0.8125rem); /* 12px -> 13px (iOS Footnote) */
+
+  /* 8-Point Grid Spacing */
+  --space-1: 0.5rem; /* 8px */
+  --space-2: 1rem; /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem; /* 32px */
+  --space-5: 2.5rem; /* 40px */
+  --space-6: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-10: 5rem; /* 80px */
+  --space-12: 6rem; /* 96px */
+}
+
+.dark {
+  /* Professional Dark Mode Palette (OKLCH) — Enhanced Visibility */
+  --background: oklch(
+    14% 0.01 250
+  ); /* Slightly deeper background for better contrast */
+  --foreground: oklch(
+    98% 0.005 250
+  ); /* Brighter foreground for perfect readability */
+
+  --surface-100: oklch(20% 0.015 250 / 0.65);
+  --surface-200: oklch(24% 0.015 250 / 0.8);
+  --surface-300: oklch(28% 0.015 250);
+
+  --primary: oklch(72% 0.12 255); /* Brighter primary for dark mode */
+  --secondary: oklch(75% 0.1 300);
+  --accent: oklch(78% 0.1 35);
+
+  --success: oklch(75% 0.15 150);
+  --warning: oklch(85% 0.15 60);
+  --destructive: oklch(72% 0.18 25);
+  --info: oklch(75% 0.15 245);
+
+  --glass-border: oklch(100% 0 0 / 0.12); /* Slightly more visible borders */
+  --glass-highlight: oklch(100% 0 0 / 0.06);
+  --glass-shadow: oklch(0% 0 0 / 0.5);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family:
+    var(--font-sans),
+    var(--font-bengali),
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition:
+    background-color 0.6s var(--ease-ios),
+    color 0.6s var(--ease-ios);
+}
+
+/* Liquid Glass Effect - The signature iOS 26 look */
+.liquid-glass {
+  background: var(--surface-100);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 4px 24px -1px var(--glass-shadow),
+    inset 0 1px 0 0 var(--glass-highlight);
+}
+
+.frosted-glass {
+  background: var(--surface-200);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-border);
+}
+
+/* Mesh Gradient Background */
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      oklch(60% 0.2 260 / 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      oklch(65% 0.2 310 / 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      oklch(70% 0.15 30 / 0.05) 0%,
+      transparent 50%
+    );
+  filter: blur(60px);
+  opacity: 1;
+}
+
+.dark .mesh-bg {
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      oklch(65% 0.1 255 / 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      oklch(68% 0.08 300 / 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      oklch(72% 0.08 35 / 0.04) 0%,
+      transparent 50%
+    );
+}
+
+/* iOS 26 Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.02em; /* Tight tracking for headings */
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+
+h1 {
+  font-size: var(--text-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+}
+
+p {
+  font-size: var(--text-body);
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+caption {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar - Minimalist */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Utilities */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Base Container Utility - Consistent throughout the site */
+.site-container {
+  width: 100%;
+  max-width: 80rem; /* 1280px (7xl) */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--primary) 0%,
+    var(--secondary) 25%,
+    oklch(85% 0.12 260) 50%,
+    var(--secondary) 75%,
+    var(--primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 12s linear infinite;
+}
+
+.card-hover {
+  transition:
+    transform 0.4s var(--ease-spring),
+    box-shadow 0.4s var(--ease-ios);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -12px var(--glass-shadow);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--surface-100);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 16px -2px var(--glass-shadow);
+}
+
+/* iOS Button Style */
+.btn-ios {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.2s var(--ease-ios),
+    box-shadow 0.2s var(--ease-ios),
+    background-color 0.2s var(--ease-ios);
+}
+
+.btn-ios:active {
+  transform: scale(0.97);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+   Dark Mode — Comprehensive Visibility Fixes
+   ============================================ */
+
+/* Form elements: ensure text is always visible in dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  color: oklch(92% 0 0) !important;
+  caret-color: oklch(68% 0.12 255);
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: oklch(55% 0 0) !important;
+}
+
+.dark select option {
+  background: oklch(22% 0.015 250);
+  color: oklch(92% 0 0);
+}
+
+/* Headings: guaranteed visible in dark mode with a slightly softer tone */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: oklch(94% 0.005 250);
+}
+
+/* Table headers: boost from low-opacity to clearly readable */
+.dark th {
+  color: oklch(75% 0 0) !important;
+}
+
+/* Table cell text */
+.dark td {
+  color: oklch(88% 0 0);
+}
+
+/* Labels across all forms */
+.dark label {
+  color: oklch(80% 0 0);
+}
+
+/* Inner shadows are too harsh in dark — soften */
+.dark .shadow-inner {
+  box-shadow: inset 0 1px 3px 0 oklch(0% 0 0 / 0.15) !important;
+}
