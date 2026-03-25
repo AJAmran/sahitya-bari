@@ -96,7 +96,8 @@ export default async function VideoListingPage({ searchParams }: VideoListingPag
     const formatVideo = (v: any) => ({
       id: v._id.toString(),
       title: v.title,
-      slug: v.youtubeId,
+      slug: v.youtubeId || v._id.toString(),
+      youtubeId: v.youtubeId,
       thumbnail: v.thumbnail || '',
       views: v.views || '0',
       duration: formatDuration(v.duration || ''),
@@ -124,14 +125,15 @@ export default async function VideoListingPage({ searchParams }: VideoListingPag
   const categories = ['All', ...new Set(allVideos.map(v => v.category))];
 
   return (
-    <div className="min-h-screen pt-24 pb-16 px-[var(--space-2)] sm:px-[var(--space-4)] lg:px-[var(--space-8)] max-w-7xl mx-auto">
+    <div className="min-h-screen pt-36 pb-16">
+      <div className="site-container">
       {/* Header */}
       <div className="mb-12 text-center relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[var(--primary)]/10 rounded-[var(--radius-full)] blur-3xl -z-10 animate-pulse pointer-events-none" />
-        <h1 className="text-4xl md:text-6xl font-black font-bengali text-[var(--foreground)] mb-4 leading-tight tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-black font-bengali text-[var(--foreground)] mb-4 leading-tight tracking-tight">
           সকল <span className="text-gradient">ভিডিও</span>
         </h1>
-        <p className="text-lg text-[var(--foreground)]/60 max-w-2xl mx-auto font-light">
+        <p className="text-base text-[var(--foreground)]/60 max-w-2xl mx-auto font-light leading-relaxed">
           Watch literature discussions, poetry recitations, and book reviews.
         </p>
       </div>
@@ -241,6 +243,7 @@ export default async function VideoListingPage({ searchParams }: VideoListingPag
           </div>
         )}
       </section>
+      </div>
     </div>
   );
 }

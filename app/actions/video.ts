@@ -7,15 +7,16 @@ import { z } from "zod"
 
 const videoSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  youtubeLink: z.string().url("Must be a valid YouTube URL"),
+  youtubeLink: z.string().optional().or(z.literal("")),
   description: z.string().optional(),
   category: z.string().default("Literature"),
-  thumbnail: z.string().optional(),
+  thumbnail: z.string().optional().or(z.literal("")),
   isUpcoming: z.boolean().default(false),
   isPopular: z.boolean().default(false),
 })
 
-function extractYoutubeId(url: string) {
+function extractYoutubeId(url: string | null | undefined) {
+  if (!url) return null;
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
@@ -27,22 +28,23 @@ export async function createVideo(formData: FormData) {
     youtubeLink: formData.get("youtubeLink"),
     description: formData.get("description"),
     category: formData.get("category"),
+    thumbnail: formData.get("thumbnail"),
     isUpcoming: formData.get("isUpcoming") === "on",
     isPopular: formData.get("isPopular") === "on",
   })
 
   let youtubeId = extractYoutubeId(data.youtubeLink);
-  if (!youtubeId) {
-    throw new Error("Invalid YouTube URL");
+  
+  // Use provided thumbnail or auto-generate if youtubeId exists
+  let thumbnail = data.thumbnail || "";
+  if (!thumbnail && youtubeId) {
+    thumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
   }
-
-  // Auto-generate thumbnail from YouTube ID
-  const thumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
 
   await dbConnect()
   await Video.create({
     title: data.title,
-    youtubeId: youtubeId,
+    youtubeId: youtubeId || undefined,
     description: data.description || "",
     category: data.category,
     isUpcoming: data.isUpcoming,
@@ -102,22 +104,23 @@ export async function updateVideo(id: string, formData: FormData) {
     youtubeLink: formData.get("youtubeLink"),
     description: formData.get("description"),
     category: formData.get("category"),
+    thumbnail: formData.get("thumbnail"),
     isUpcoming: formData.get("isUpcoming") === "on",
     isPopular: formData.get("isPopular") === "on",
   })
 
   let youtubeId = extractYoutubeId(data.youtubeLink);
-  if (!youtubeId) {
-    throw new Error("Invalid YouTube URL");
+  
+  // Use provided thumbnail or auto-generate if youtubeId exists
+  let thumbnail = data.thumbnail || "";
+  if (!thumbnail && youtubeId) {
+    thumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
   }
-
-  // Auto-generate thumbnail from YouTube ID
-  const thumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
 
   await dbConnect()
   await Video.findByIdAndUpdate(id, {
     title: data.title,
-    youtubeId: youtubeId,
+    youtubeId: youtubeId || null,
     description: data.description || "",
     category: data.category,
     isUpcoming: data.isUpcoming,

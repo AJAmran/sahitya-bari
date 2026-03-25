@@ -13,7 +13,7 @@ interface HeroProps {
 
 export default function Hero({ title, subtitle }: HeroProps) {
   return (
-    <section className="relative w-full min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden pt-[var(--space-12)] pb-[var(--space-10)]">
+    <section className="relative w-full min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden pt-36 pb-[var(--space-10)]">
       {/* Dynamic Background Elements - Hyper-realistic 2026 Style */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

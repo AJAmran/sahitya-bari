@@ -90,8 +90,8 @@ export default async function AdminDashboard() {
             <ShieldCheck size={14} />
             Verified Admin Access
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tight">Dashboard Overview</h1>
-          <p className="text-lg text-[var(--foreground)]/50 font-medium">Monitoring the pulse of <span className="font-bold text-[var(--primary)]">Sahitya Bari</span> digital ecosystem.</p>
+          <h1 className="text-2xl md:text-3xl font-black text-[var(--foreground)] tracking-tight">Dashboard Overview</h1>
+          <p className="text-base text-[var(--foreground)]/50 font-medium">Monitoring the pulse of <span className="font-bold text-[var(--primary)]">Sahitya Bari</span> digital ecosystem.</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -125,10 +125,10 @@ export default async function AdminDashboard() {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="text-4xl font-black text-[var(--foreground)] tracking-tighter">{stat.value}</div>
-                <div className="text-xs font-black text-[var(--foreground)]/50 uppercase tracking-[0.1em]">{stat.title}</div>
+                <div className="admin-metric text-[var(--foreground)]">{stat.value}</div>
+                <div className="admin-label text-[var(--foreground)]">{stat.title}</div>
                 {stat.subtitle && (
-                  <div className="text-xs text-[var(--foreground)]/40 font-bold mt-1.5 flex items-center gap-1.5">
+                   <div className="text-[9px] text-[var(--foreground)]/40 font-bold mt-1.5 flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 rounded-[var(--radius-full)] bg-[var(--primary)]" />
                     {stat.subtitle}
                   </div>
@@ -144,9 +144,9 @@ export default async function AdminDashboard() {
         {/* Recent Activity */}
         <div className="xl:col-span-3 space-y-6">
           <div className="flex items-center justify-between px-2">
-            <h2 className="text-2xl font-black flex items-center gap-3">
+            <h2 className="flex items-center gap-3">
               Recent Activity
-              <span className="text-xs font-black px-2.5 py-1 rounded-[var(--radius-full)] bg-[var(--surface-200)] text-[var(--foreground)]/50 uppercase tracking-widest border border-[var(--glass-border)]">Live</span>
+              <span className="admin-label px-2.5 py-1 rounded-[var(--radius-full)] bg-[var(--surface-200)] text-[var(--foreground)] border border-[var(--glass-border)] opacity-100">Live</span>
             </h2>
             <Link href="/admin/blogs" className="text-sm font-black text-[var(--primary)] flex items-center gap-1 uppercase tracking-wider hover:translate-x-1 transition-transform">
               View Journal <ArrowRight size={16} />
@@ -165,7 +165,7 @@ export default async function AdminDashboard() {
                       <BookOpen size={22} />}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-black text-[var(--foreground)] text-lg leading-tight truncate group-hover:text-[var(--primary)] transition-colors">{activity.title}</h4>
+                  <h4 className="font-black text-[var(--foreground)] text-base leading-tight truncate group-hover:text-[var(--primary)] transition-colors">{activity.title}</h4>
                   <p className="text-xs text-[var(--foreground)]/50 font-bold uppercase tracking-widest mt-1">{activity.action}</p>
                 </div>
                 <div className="text-right shrink-0">
@@ -239,8 +239,8 @@ function ShortcutCard({ href, icon, title, desc, color, delay }: any) {
         {icon}
       </div>
       <div className="flex-1">
-        <h3 className="text-lg font-black text-[var(--foreground)] tracking-tight group-hover:text-[var(--primary)] transition-colors">{title}</h3>
-        <p className="text-xs text-[var(--foreground)]/60 font-medium tracking-tight uppercase leading-none mt-1">{desc}</p>
+        <h3 className="text-[var(--foreground)] tracking-tight group-hover:text-[var(--primary)] transition-colors inline-block">{title}</h3>
+        <p className="admin-label leading-none mt-1.5 block">{desc}</p>
       </div>
       <div className="w-10 h-10 rounded-[var(--radius-full)] bg-[var(--surface-200)] flex items-center justify-center text-[var(--foreground)]/40 transition-all duration-500 group-hover:bg-[var(--primary)] group-hover:text-white group-hover:scale-110">
         <ChevronRight size={20} />

@@ -27,7 +27,7 @@ export default async function AdminBlogsPage() {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Blog Articles</h1>
+          <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Blog Articles</h1>
           <p className="text-[var(--foreground)]/50 font-medium">Create and refine your literary publications.</p>
         </div>
         <Link
@@ -128,7 +128,7 @@ export default async function AdminBlogsPage() {
                         <FileText size={32} />
                       </div>
                       <div className="space-y-1">
-                        <h3 className="text-xl font-bold text-[var(--foreground)]">No Publications</h3>
+                        <h3 className="text-lg font-bold text-[var(--foreground)]">No Publications</h3>
                         <p className="text-sm text-[var(--foreground)]/40 font-medium">Start sharing your thoughts with the world.</p>
                       </div>
                     </div>

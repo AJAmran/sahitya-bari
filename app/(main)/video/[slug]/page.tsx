@@ -67,7 +67,7 @@ export default async function VideoDetailPage({ params }: VideoDetailPageProps) 
   }));
 
   return (
-    <div className="min-h-screen pt-32 pb-20">
+    <div className="min-h-screen pt-36 pb-20">
       <div className="site-container">
         {/* Back Button */}
         <Link
@@ -87,7 +87,22 @@ export default async function VideoDetailPage({ params }: VideoDetailPageProps) 
               animate={{ opacity: 1, y: 0 }}
               className="relative aspect-video rounded-[var(--radius-3xl)] overflow-hidden shadow-2xl shadow-[var(--glass-shadow)] liquid-glass border border-[var(--glass-border)]"
             >
-              <YouTubeEmbed embedId={video.youtubeId} />
+              {video.youtubeId ? (
+                <YouTubeEmbed embedId={video.youtubeId} />
+              ) : (
+                <div className="relative w-full h-full">
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="liquid-glass px-8 py-4 rounded-[var(--radius-full)] border border-white/20 text-white font-black text-xs uppercase tracking-[0.3em] backdrop-blur-xl">
+                      Coming Soon
+                    </div>
+                  </div>
+                </div>
+              )}
             </MotionDiv>
 
             {/* Video Content & Stats */}

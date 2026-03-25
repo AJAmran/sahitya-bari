@@ -17,7 +17,7 @@ export default function NewSpotlightPage() {
           <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[var(--warning)]/10 flex items-center justify-center text-[var(--warning)]">
             <Star size={24} />
           </div>
-          <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Create New Promotion</h1>
+          <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Create New Promotion</h1>
         </div>
       </div>
 

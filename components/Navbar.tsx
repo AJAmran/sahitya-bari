@@ -12,6 +12,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Videos', href: '/videos' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Shop', href: '/shop' },
 ];
 
 interface NavbarProps {
@@ -54,17 +55,16 @@ export default function Navbar({ youtubeUrl, siteTitle }: NavbarProps) {
         >
           <div className="flex items-center justify-between min-h-[44px]">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-[var(--space-2)] group min-h-[44px]">
-              <div className="relative w-10 h-10 rounded-[var(--radius-md)] overflow-hidden shadow-lg group-hover:shadow-[var(--primary)]/30 transition-all duration-300">
+            <Link href="/" className="flex items-center group min-h-[44px]">
+              <div className="relative h-20 w-auto transition-all duration-300">
                 <img
-                  src="/logo.png"
-                  alt="Sahitya Bari Logo"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  src="/logo-horzontal.png"
+                  alt="Sahitya Bari"
+                  className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                  width={420}
+                  height={235}
                 />
               </div>
-              <span className="text-2xl font-black font-bengali text-gradient tracking-tight">
-                {siteTitle || "সাহিত্য বাড়ি"}
-              </span>
             </Link>
 
             {/* Desktop Menu */}

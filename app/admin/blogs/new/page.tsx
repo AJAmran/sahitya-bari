@@ -17,7 +17,7 @@ export default function NewBlogPage() {
           <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[var(--secondary)]/10 flex items-center justify-center text-[var(--secondary)]">
             <FilePlus size={24} />
           </div>
-          <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Compose New Article</h1>
+          <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Compose New Article</h1>
         </div>
       </div>
 

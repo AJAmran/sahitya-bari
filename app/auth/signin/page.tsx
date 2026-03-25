@@ -38,7 +38,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[var(--surface-50)] dark:bg-[#000000]">
+    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[var(--background)]">
       {/* Background decoration */}
       <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-[var(--primary)]/10 blur-[120px] rounded-[var(--radius-full)]" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--secondary)]/10 blur-[120px] rounded-[var(--radius-full)]" />

@@ -28,7 +28,7 @@ export default async function AdminSubscribersPage() {
         <div className="space-y-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="space-y-1">
-                    <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Subscribers</h1>
+                    <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Subscribers</h1>
                     <p className="text-[var(--foreground)]/50 font-medium">Manage your growing newsletter audience.</p>
                 </div>
                 <div className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--success)]/10 border border-[var(--success)]/20 flex items-center gap-3 shadow-sm">

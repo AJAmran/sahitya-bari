@@ -18,7 +18,7 @@ interface BlogCardProps {
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blog/${post.slug}`} className="group flex flex-col h-full">
-      <div className="flex-1 relative overflow-hidden rounded-[2rem] bg-[var(--surface-50)] dark:bg-[var(--surface-50)] border border-[var(--glass-border)] transition-all duration-700 hover:shadow-2xl hover:shadow-[var(--secondary)]/10 flex flex-col group">
+      <div className="flex-1 relative overflow-hidden rounded-[2rem] bg-[var(--surface-50)] border border-[var(--glass-border)] transition-all duration-700 hover:shadow-2xl hover:shadow-[var(--secondary)]/10 flex flex-col group">
         {/* Image - Editorial Style */}
         <div className="relative h-48 w-full overflow-hidden shrink-0">
           <Image

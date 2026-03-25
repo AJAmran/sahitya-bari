@@ -3,14 +3,15 @@ import { Award, BookOpen, Users, Heart } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
+    <div className="min-h-screen pt-36 pb-12 relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-[var(--radius-full)] blur-3xl -z-10 animate-pulse" />
+      <div className="absolute top-20 left-0 w-96 h-96 bg-[var(--primary)]/10 rounded-[var(--radius-full)] blur-3xl -z-10 animate-pulse" />
 
       {/* Hero Section */}
+      <div className="site-container">
       <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
         <h1 className="text-4xl md:text-6xl font-black font-bengali text-[var(--foreground)] mb-6 leading-tight tracking-tight">
-          আমাদের <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]">গল্প</span>
+          আমাদের <span className="text-gradient">গল্প</span>
         </h1>
         <p className="text-lg text-[var(--foreground)]/60 max-w-3xl mx-auto font-medium leading-relaxed">
           Sahitya Bari is a platform dedicated to preserving and promoting the rich heritage of Bengali literature.
@@ -92,6 +93,7 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

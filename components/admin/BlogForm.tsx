@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "sonner"
+import ReactMarkdown from "react-markdown"
 import { createBlogPost, updateBlogPost } from "@/app/actions/blog"
 import {
   Type,
@@ -18,7 +19,18 @@ import {
   Save,
   X,
   Loader2,
-  CheckCircle2
+  CheckCircle2,
+  Bold,
+  Italic,
+  Heading1,
+  Heading2,
+  List,
+  ListOrdered,
+  Quote,
+  Code,
+  Highlighter,
+  Eye,
+  PenTool
 } from "lucide-react"
 
 const blogSchema = z.object({
@@ -38,13 +50,16 @@ interface BlogFormProps {
 export default function BlogForm({ initialData }: BlogFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [isPreview, setIsPreview] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    setValue
+    setValue,
+    getValues
   } = useForm<any>({
     resolver: zodResolver(blogSchema),
     defaultValues: initialData || {
@@ -58,7 +73,9 @@ export default function BlogForm({ initialData }: BlogFormProps) {
     },
   })
 
-  // Auto-generate slug from title if title changes and slug is empty
+  // Register content field with ref manually to support toolbar insertion
+  const { ref: contentRef, ...contentRegister } = register("content")
+
   const title = watch("title")
   const slug = watch("slug")
 
@@ -66,14 +83,36 @@ export default function BlogForm({ initialData }: BlogFormProps) {
     if (title && !slug) {
       const generated = title
         .toLowerCase()
-        // Replace spaces and special chars (but keep Unicode letters/marks/digits and hyphens)
         .replace(/[\s_]+/g, "-")
-        // Remove characters that are not letters, marks, digits, hyphens, or Unicode chars
         .replace(/[^\p{L}\p{M}\p{N}-]/gu, "")
-        .replace(/-+/g, "-") // Collapse multiple hyphens
-        .replace(/^-|-$/g, "") // Trim leading/trailing hyphens
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "")
       setValue("slug", generated || `post-${Date.now()}`)
     }
+  }
+
+  const insertMarkdown = (prefix: string, suffix: string = "") => {
+    const textarea = textareaRef.current
+    if (!textarea) return
+
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const text = getValues("content")
+    const selectedText = text.substring(start, end)
+    
+    const newText = 
+      text.substring(0, start) + 
+      prefix + selectedText + suffix + 
+      text.substring(end)
+
+    setValue("content", newText)
+    
+    // Focus back and set cursor
+    setTimeout(() => {
+      textarea.focus()
+      const newPos = start + prefix.length + selectedText.length + suffix.length
+      textarea.setSelectionRange(newPos, newPos)
+    }, 0)
   }
 
   const onSubmit = async (data: any) => {
@@ -97,14 +136,25 @@ export default function BlogForm({ initialData }: BlogFormProps) {
     }
   }
 
+  const MarkdownToolbarButton = ({ onClick, icon: Icon, title }: any) => (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      className="p-1.5 rounded-[var(--radius-sm)] hover:bg-[var(--primary)]/10 text-[var(--foreground)]/60 hover:text-[var(--primary)] transition-all active:scale-95"
+    >
+      <Icon size={16} />
+    </button>
+  )
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700 admin-suite">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Main Editor Section */}
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-[var(--surface-100)]/40 backdrop-blur-xl rounded-[var(--radius-xl)] border border-[var(--glass-border)] p-8 md:p-10 space-y-8 shadow-2xl shadow-[var(--primary)]/5">
             <div className="space-y-2">
-              <label className="text-xs font-black text-[var(--foreground)]/30 uppercase tracking-[0.2em] flex items-center gap-2">
+              <label className="admin-label flex items-center gap-2">
                 <Type size={14} className="text-[var(--primary)]" />
                 Article Title
               </label>
@@ -112,33 +162,80 @@ export default function BlogForm({ initialData }: BlogFormProps) {
                 {...register("title")}
                 onBlur={generateSlug}
                 placeholder="Enter a compelling title..."
-                className="w-full bg-transparent border-none p-0 text-3xl font-black text-[var(--foreground)] placeholder-[var(--foreground)]/10 focus:ring-0 outline-none"
+                className="w-full bg-transparent border-none p-0 text-2xl lg:text-3xl font-black text-[var(--foreground)] placeholder-[var(--foreground)]/10 focus:ring-0 outline-none"
               />
               {errors.title && <p className="text-[var(--destructive)] text-[10px] font-bold uppercase tracking-tighter">{String(errors.title.message)}</p>}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-black text-[var(--foreground)]/30 uppercase tracking-[0.2em] flex items-center gap-2">
+              <label className="admin-label flex items-center gap-2">
                 <AlignLeft size={14} className="text-[var(--primary)]" />
                 Short Excerpt
               </label>
               <textarea
                 {...register("excerpt")}
                 placeholder="Brief summary of the article..."
-                className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-lg)] border border-[var(--glass-border)] p-5 text-sm font-medium text-[var(--foreground)] placeholder-[var(--foreground)]/20 focus:ring-2 focus:ring-[var(--primary)]/30 focus:bg-[var(--surface-100)] outline-none transition-all h-24 resize-none shadow-inner"
+                className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-lg)] border border-[var(--glass-border)] p-5 text-sm font-medium text-[var(--foreground)] placeholder-[var(--foreground)]/20 focus:ring-2 focus:ring-[var(--primary)]/30 focus:bg-[var(--surface-100)] outline-none transition-all h-24 resize-none shadow-inner"
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-black text-[var(--foreground)]/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                <FileText size={14} className="text-[var(--primary)]" />
-                Main Content (Markdown)
-              </label>
-              <textarea
-                {...register("content")}
-                placeholder="# Start writing your story..."
-                className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-lg)] border border-[var(--glass-border)] p-8 text-base font-mono leading-relaxed text-[var(--foreground)] placeholder-[var(--foreground)]/10 focus:ring-2 focus:ring-[var(--primary)]/30 focus:bg-[var(--surface-100)] outline-none transition-all h-[500px] shadow-inner"
-              />
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <label className="admin-label flex items-center gap-2">
+                  <FileText size={14} className="text-[var(--primary)]" />
+                  Main Content (Markdown)
+                </label>
+                
+                {/* Advanced Toolbar */}
+                <div className="flex items-center gap-0.5 p-1 bg-[var(--surface-200)]/50 border border-[var(--glass-border)] rounded-[var(--radius-md)] overflow-x-auto scrollbar-hide">
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("**", "**")} icon={Bold} title="Bold" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("*", "*")} icon={Italic} title="Italic" />
+                  <div className="w-[1px] h-6 bg-[var(--glass-border)] mx-1" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("\n# ", "")} icon={Heading1} title="Heading 1" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("\n## ", "")} icon={Heading2} title="Heading 2" />
+                  <div className="w-[1px] h-6 bg-[var(--glass-border)] mx-1" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("\n- ", "")} icon={List} title="Bullet List" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("\n1. ", "")} icon={ListOrdered} title="Numbered List" />
+                  <div className="w-[1px] h-6 bg-[var(--glass-border)] mx-1" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("\n> ", "")} icon={Quote} title="Quote" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("`", "`")} icon={Code} title="Inline Code" />
+                  <MarkdownToolbarButton onClick={() => insertMarkdown("<mark>", "</mark>")} icon={Highlighter} title="Highlight" />
+                  <div className="w-[1px] h-6 bg-[var(--glass-border)] mx-1 hover:bg-[var(--primary)]/20 transition-colors" />
+                  
+                  <button
+                    type="button"
+                    onClick={() => setIsPreview(!isPreview)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] text-[10px] font-black uppercase tracking-widest transition-all ${isPreview ? "bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20" : "hover:bg-[var(--primary)]/10 text-[var(--foreground)]/40 hover:text-[var(--primary)]"}`}
+                  >
+                    {isPreview ? <PenTool size={12} /> : <Eye size={12} />}
+                    {isPreview ? "Edit" : "Review Mode"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative group">
+                {isPreview ? (
+                  <div className="w-full bg-[var(--surface-100)] rounded-[var(--radius-lg)] border border-[var(--glass-border)] p-10 h-[600px] overflow-y-auto prose dark:prose-invert prose-slate max-w-none shadow-inner">
+                    <ReactMarkdown>{watch("content") || "*No content provided yet.*"}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <>
+                    <textarea
+                      {...contentRegister}
+                      ref={(e) => {
+                        contentRef(e)
+                        // @ts-ignore
+                        textareaRef.current = e
+                      }}
+                      placeholder="# Start writing your story..."
+                      className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-lg)] border border-[var(--glass-border)] p-8 text-base font-mono leading-relaxed text-[var(--foreground)] placeholder-[var(--foreground)]/10 focus:ring-2 focus:ring-[var(--primary)]/30 focus:bg-[var(--surface-100)] outline-none transition-all h-[600px] shadow-inner resize-y min-h-[400px]"
+                    />
+                    <div className="absolute bottom-4 right-4 px-2 py-1 rounded bg-black/5 text-[10px] text-[var(--foreground)]/20 font-mono tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      Line: {watch("content").split("\n").length} | Words: {watch("content").split(/\s+/).filter(Boolean).length}
+                    </div>
+                  </>
+                )}
+              </div>
               {errors.content && <p className="text-[var(--destructive)] text-[10px] font-bold uppercase tracking-tighter">{String(errors.content.message)}</p>}
             </div>
           </div>
@@ -147,60 +244,60 @@ export default function BlogForm({ initialData }: BlogFormProps) {
         {/* Sidebar Configuration */}
         <div className="space-y-8">
           <div className="bg-[var(--surface-100)]/40 backdrop-blur-xl rounded-[var(--radius-xl)] border border-[var(--glass-border)] p-8 space-y-8 shadow-2xl shadow-[var(--primary)]/5">
-            <h3 className="text-sm font-black text-[var(--foreground)]/50 uppercase tracking-[0.2em] pb-4 border-b border-[var(--glass-border)]">Publishing Meta</h3>
+            <h3 className="admin-label pb-4 border-b border-[var(--glass-border)] opacity-100 scale-100">Publishing Meta</h3>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-[var(--foreground)]/30 uppercase tracking-widest flex items-center gap-2">
+                <label className="admin-label flex items-center gap-2 opacity-100">
                   <LinkIcon size={12} />
                   URL Slug
                 </label>
                 <input
                   {...register("slug")}
                   placeholder="url-friendly-slug"
-                  className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
+                  className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-[var(--foreground)]/30 uppercase tracking-widest flex items-center gap-2">
+                <label className="admin-label flex items-center gap-2 opacity-100">
                   <Tag size={12} />
                   Category
                 </label>
                 <input
                   {...register("category")}
                   placeholder="e.g. Literature"
-                  className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
+                  className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-[var(--foreground)]/30 uppercase tracking-widest flex items-center gap-2">
+                <label className="admin-label flex items-center gap-2 opacity-100">
                   <User size={12} />
                   Author
                 </label>
                 <input
                   {...register("author")}
                   placeholder="Author Name"
-                  className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
+                  className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
                 />
               </div>
             </div>
           </div>
 
           <div className="bg-[var(--surface-100)]/40 backdrop-blur-xl rounded-[var(--radius-xl)] border border-[var(--glass-border)] p-8 space-y-6 shadow-2xl shadow-[var(--primary)]/5">
-            <h3 className="text-sm font-black text-[var(--foreground)]/50 uppercase tracking-[0.2em] pb-4 border-b border-[var(--glass-border)]">Visuals</h3>
+            <h3 className="admin-label pb-4 border-b border-[var(--glass-border)] opacity-100">Visuals</h3>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-[var(--foreground)]/30 uppercase tracking-widest flex items-center gap-2">
+                <label className="admin-label flex items-center gap-2 opacity-100">
                   <ImageIcon size={12} />
                   Cover Image URL
                 </label>
                 <input
                   {...register("coverImage")}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
+                  className="w-full bg-[var(--surface-200)]/30 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
                 />
               </div>
               {watch("coverImage") && (
@@ -234,3 +331,4 @@ export default function BlogForm({ initialData }: BlogFormProps) {
     </form>
   )
 }
+

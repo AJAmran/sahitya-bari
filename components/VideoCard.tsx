@@ -7,6 +7,7 @@ interface VideoCardProps {
   video: {
     title: string;
     slug: string;
+    youtubeId?: string;
     thumbnail: string;
     views: string;
     duration: string;
@@ -16,9 +17,11 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ video }: VideoCardProps) {
+  const hasVideo = !!video.youtubeId;
+
   return (
     <Link href={`/video/${video.slug}`} className="group block">
-      <div className="relative flex flex-col h-full bg-[var(--surface-100)] dark:bg-[var(--surface-50)] rounded-[2rem] border border-[var(--glass-border)] transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--primary)]/10 hover:-translate-y-1 overflow-hidden">
+      <div className="relative flex flex-col h-full bg-[var(--surface-50)] rounded-[2rem] border border-[var(--glass-border)] transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--primary)]/10 hover:-translate-y-1 overflow-hidden">
         {/* Thumbnail Container */}
         <div className="relative aspect-video w-full overflow-hidden shrink-0">
           <Image
@@ -32,11 +35,22 @@ export default function VideoCard({ video }: VideoCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Minimalist Play Button */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-12 h-12 rounded-[var(--radius-full)] liquid-glass flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-out shadow-2xl">
-              <PlayCircle className="w-6 h-6 text-white" />
+          {hasVideo && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-12 h-12 rounded-[var(--radius-full)] liquid-glass flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-out shadow-2xl">
+                <PlayCircle className="w-6 h-6 text-white" />
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Coming Soon Indicator */}
+          {!hasVideo && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="px-4 py-2 rounded-[var(--radius-full)] liquid-glass border border-white/20 text-white font-black text-[8px] uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                Coming Soon
+              </div>
+            </div>
+          )}
 
           {/* Badges - Floating Glass */}
           <div className="absolute top-3 left-3 flex gap-2">
@@ -47,10 +61,12 @@ export default function VideoCard({ video }: VideoCardProps) {
             )}
           </div>
 
-          <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded-[var(--radius-lg)] text-[10px] font-medium text-white/90 flex items-center gap-1 border border-white/5">
-            <Clock size={10} />
-            {video.duration}
-          </div>
+          {hasVideo && video.duration && (
+            <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded-[var(--radius-lg)] text-[10px] font-medium text-white/90 flex items-center gap-1 border border-white/5">
+              <Clock size={10} />
+              {video.duration}
+            </div>
+          )}
         </div>
 
         {/* Content Area */}

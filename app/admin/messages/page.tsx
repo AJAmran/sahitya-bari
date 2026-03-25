@@ -38,7 +38,7 @@ export default async function AdminMessagesPage() {
             {/* Header section with Stats */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-1">
-                    <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Inbox</h1>
+                    <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Inbox</h1>
                     <p className="text-[var(--foreground)]/50 font-medium">Manage inquiries and feedback from your readers.</p>
                 </div>
 

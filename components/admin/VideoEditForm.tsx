@@ -44,7 +44,7 @@ export default function VideoEditForm({ video }: { video: any }) {
                     <div className="w-12 h-12 rounded-[var(--radius-md)] bg-[var(--secondary)]/10 flex items-center justify-center text-[var(--secondary)]">
                         <Video size={24} />
                     </div>
-                    <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Refine Video Details</h1>
+                    <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Refine Video Details</h1>
                 </div>
             </div>
 
@@ -95,11 +95,26 @@ export default function VideoEditForm({ video }: { video: any }) {
                                 <input
                                     name="youtubeLink"
                                     type="url"
-                                    required
-                                    defaultValue={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                                    defaultValue={video.youtubeId ? `https://www.youtube.com/watch?v=${video.youtubeId}` : ''}
                                     placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                                     className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--destructive)] transition-all outline-none shadow-inner placeholder-[var(--foreground)]/20"
                                 />
+                                <p className="text-[10px] text-[var(--foreground)]/40 font-medium italic">Optional for upcoming videos</p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-black text-[var(--foreground)]/30 uppercase tracking-widest flex items-center gap-2">
+                                    <AlignLeft size={12} />
+                                    Thumbnail / Image Link
+                                </label>
+                                <input
+                                    name="thumbnail"
+                                    type="url"
+                                    defaultValue={video.thumbnail}
+                                    placeholder="e.g. https://images.unsplash.com/photo-..."
+                                    className="w-full bg-[var(--surface-200)]/50 rounded-[var(--radius-md)] border border-[var(--glass-border)] px-4 py-3 text-xs font-bold text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] transition-all outline-none shadow-inner"
+                                />
+                                <p className="text-[10px] text-[var(--foreground)]/40 font-medium italic">Required if no YouTube link is provided</p>
                             </div>
 
                             <div className="space-y-2">

@@ -29,7 +29,7 @@ export default async function AdminSpotlightPage() {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Featured Spotlight</h1>
+          <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Featured Spotlight</h1>
           <p className="text-[var(--foreground)]/50 font-medium">Prioritize your most important content announcements.</p>
         </div>
         <Link

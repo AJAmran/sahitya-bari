@@ -66,7 +66,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const isAdmin = session?.user?.role === 'ADMIN';
 
   return (
-    <div className="min-h-screen pt-32 pb-20 overflow-visible selection:bg-[var(--primary)] selection:text-white bg-[var(--background)]">
+    <div className="min-h-screen pt-36 pb-20 overflow-visible selection:bg-[var(--primary)] selection:text-white bg-[var(--background)]">
       {/* Subtle Atmospheric Gradient */}
       <div className="fixed inset-0 pointer-events-none opacity-20 dark:opacity-10 z-0">
         <div className="absolute top-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-[var(--primary)]/10 blur-[150px] rounded-[var(--radius-full)]" />
@@ -196,7 +196,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           </div>
 
           {/* Sidebar Area */}
-          <aside className="lg:col-span-4 space-y-20 lg:sticky lg:top-32">
+          <aside className="lg:col-span-4 space-y-20 lg:sticky lg:top-36">
 
             {/* Author Insight Card */}
             <div className="p-10 rounded-[3rem] bg-[var(--surface-50)] border border-[var(--glass-border)] shadow-sm space-y-10 group">

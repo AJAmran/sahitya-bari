@@ -47,7 +47,7 @@ export default async function EditBlogPage({ params }: EditBlogPageProps) {
             <Edit3 size={24} />
           </div>
           <div className="space-y-1">
-            <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Refine Article</h1>
+            <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Refine Article</h1>
             <p className="text-[var(--foreground)]/40 text-xs font-bold uppercase tracking-widest">Editing: {formData.title}</p>
           </div>
         </div>

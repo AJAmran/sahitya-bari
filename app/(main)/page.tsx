@@ -101,7 +101,7 @@ async function getPopularVideos() {
       return videos.map((v: any) => ({
         id: v._id.toString(),
         title: v.title,
-        slug: v.youtubeId,
+        slug: v.youtubeId || v._id.toString(),
         thumbnail: v.thumbnail || '',
         views: v.views || '0',
         duration: formatDuration(v.duration || ''),
@@ -129,7 +129,7 @@ async function getUpcomingVideos() {
       return videos.map((v: any) => ({
         id: v._id.toString(),
         title: v.title,
-        slug: v.youtubeId,
+        slug: v.youtubeId || v._id.toString(),
         thumbnail: v.thumbnail || '',
         views: v.views || '0',
         duration: formatDuration(v.duration || ''),
@@ -156,7 +156,7 @@ async function getLatestVideos() {
       return videos.map((v: any) => ({
         id: v._id.toString(),
         title: v.title,
-        slug: v.youtubeId,
+        slug: v.youtubeId || v._id.toString(),
         thumbnail: v.thumbnail || '',
         views: v.views || '0',
         duration: formatDuration(v.duration || ''),

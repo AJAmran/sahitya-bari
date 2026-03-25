@@ -30,7 +30,7 @@ export default async function AdminVideosPage() {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Video Library</h1>
+          <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Video Library</h1>
           <p className="text-[var(--foreground)]/50 font-medium">Manage your video content library.</p>
         </div>
         <Link
@@ -177,7 +177,7 @@ export default async function AdminVideosPage() {
                         <Play size={32} />
                       </div>
                       <div className="space-y-1">
-                        <h3 className="text-xl font-bold text-[var(--foreground)]">Empty Library</h3>
+                        <h3 className="text-lg font-bold text-[var(--foreground)]">Empty Library</h3>
                         <p className="text-sm text-[var(--foreground)]/40 font-medium">Sync with your YouTube channel to populate your dashboard.</p>
                       </div>
                     </div>

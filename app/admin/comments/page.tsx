@@ -14,7 +14,7 @@ export default async function AdminCommentsPage() {
     return (
         <div className="space-y-10">
             <div className="space-y-1">
-                <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tight">Community Feedback</h1>
+                <h1 className="text-2xl lg:text-3xl font-black text-[var(--foreground)] tracking-tight">Community Feedback</h1>
                 <p className="text-[var(--foreground)]/50 font-medium">Manage and respond to reader interactions.</p>
             </div>
 
