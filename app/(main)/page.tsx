@@ -248,21 +248,21 @@ export default async function Home() {
         <section className="py-[var(--space-12)] relative overflow-hidden">
           {/* Section Background Decoration */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-full pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#AF52DE,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(40%_0.10_145),transparent_70%)]" />
           </div>
 
           <div className="site-container relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-[var(--space-8)] gap-6">
               <div className="relative">
-                <div className="absolute -top-10 -left-10 w-24 h-24 bg-[#AF52DE]/20 rounded-[var(--radius-full)] blur-[60px] animate-pulse" />
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--radius-full)] bg-[#AF52DE]/10 text-[#AF52DE] text-[10px] font-black uppercase tracking-[0.2em] border border-[#AF52DE]/20 mb-3 backdrop-blur-sm">
+                <div className="absolute -top-10 -left-10 w-24 h-24 bg-[var(--accent)]/20 rounded-[var(--radius-full)] blur-[60px] animate-pulse" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--radius-full)] bg-[var(--accent)]/10 text-[var(--accent)] text-[10px] font-black uppercase tracking-[0.2em] border border-[var(--accent)]/20 mb-3 backdrop-blur-sm">
                   <Sparkles size={12} className="animate-pulse" />
                   <span>Premiering Soon</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold font-bengali text-[var(--foreground)] tracking-tight leading-[1.2]">
-                  আসন্ন <span className="text-[#AF52DE] drop-shadow-[0_0_15px_rgba(175,82,222,0.3)]">ভিডিও</span>
+                  আসন্ন <span className="text-[var(--accent)]">ভিডিও</span>
                 </h2>
-                <div className="h-1 w-20 bg-gradient-to-r from-[#AF52DE] to-transparent rounded-[var(--radius-full)] mt-4" />
+                <div className="h-1 w-20 bg-gradient-to-r from-[var(--accent)] to-transparent rounded-[var(--radius-full)] mt-4" />
               </div>
             </div>
 
@@ -281,21 +281,21 @@ export default async function Home() {
       <section className="py-[var(--space-12)] relative overflow-hidden">
         {/* Section Background Decoration */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-full pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#FF9500,transparent_70%)]" />
+           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(65%_0.10_50),transparent_70%)]" />
         </div>
 
         <div className="site-container relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-[var(--space-8)] gap-6">
             <div className="relative">
-              <div className="absolute -top-10 -left-10 w-24 h-24 bg-[#FF9500]/20 rounded-[var(--radius-full)] blur-[60px] animate-pulse" />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--radius-full)] bg-[#FF9500]/10 text-[#FF9500] text-[10px] font-black uppercase tracking-[0.2em] border border-[#FF9500]/20 mb-3 backdrop-blur-sm">
+              <div className="absolute -top-10 -left-10 w-24 h-24 bg-[var(--accent-warm)]/20 rounded-[var(--radius-full)] blur-[60px] animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--radius-full)] bg-[var(--accent-warm)]/10 text-[var(--accent-warm)] text-[10px] font-black uppercase tracking-[0.2em] border border-[var(--accent-warm)]/20 mb-3 backdrop-blur-sm">
                 <TrendingUp size={12} className="animate-bounce" />
                 <span>Trending Now</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold font-bengali text-[var(--foreground)] tracking-tight leading-[1.2]">
-                জনপ্রিয় <span className="text-[#FF9500] drop-shadow-[0_0_15px_rgba(255,149,0,0.3)]">ভিডিও</span>
+                জনপ্রিয় <span className="text-[var(--accent-warm)]">ভিডিও</span>
               </h2>
-              <div className="h-1 w-20 bg-gradient-to-r from-[#FF9500] to-transparent rounded-[var(--radius-full)] mt-4" />
+              <div className="h-1 w-20 bg-gradient-to-r from-[var(--accent-warm)] to-transparent rounded-[var(--radius-full)] mt-4" />
             </div>
 
             <Link
@@ -367,8 +367,8 @@ export default async function Home() {
           <div className="max-w-5xl mx-auto relative overflow-hidden rounded-[2.5rem] liquid-glass text-center py-[var(--space-10)] px-[var(--space-4)] group">
             {/* Animated Background */}
             <div className="absolute inset-0 opacity-30 pointer-events-none">
-              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,oklch(65%_0.22_260/0.1),transparent_70%)] group-hover:scale-110 transition-transform duration-1000" />
-              <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,oklch(75%_0.16_310/0.1),transparent_60%)] animate-pulse" />
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,oklch(52%_0.09_120/0.1),transparent_70%)] group-hover:scale-110 transition-transform duration-1000" />
+              <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,oklch(72%_0.06_75/0.1),transparent_60%)] animate-pulse" />
             </div>
 
             <div className="relative z-10 max-w-2xl mx-auto">

@@ -175,7 +175,7 @@ export default async function VideoListingPage({ searchParams }: VideoListingPag
           {upcomingVideos.length > 0 && (
             <section className="relative group">
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[#AF52DE]/10 flex items-center justify-center text-[#AF52DE] shadow-inner">
+                <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] shadow-inner">
                   <Sparkles size={20} className="animate-pulse" />
                 </div>
                 <div>
@@ -196,7 +196,7 @@ export default async function VideoListingPage({ searchParams }: VideoListingPag
           {popularVideos.length > 0 && (
             <section className="relative group">
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[#FF9500]/10 flex items-center justify-center text-[#FF9500] shadow-inner">
+                <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[var(--accent-warm)]/10 flex items-center justify-center text-[var(--accent-warm)] shadow-inner">
                   <TrendingUp size={20} className="animate-bounce" />
                 </div>
                 <div>

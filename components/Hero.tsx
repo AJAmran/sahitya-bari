@@ -23,7 +23,7 @@ export default function Hero({ title, subtitle }: HeroProps) {
             y: [0, -30, 0]
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-[oklch(65%_0.18_260/0.15)] dark:bg-[oklch(65%_0.18_260/0.1)] rounded-[var(--radius-full)] blur-[140px]"
+          className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-[oklch(52%_0.09_120/0.12)] dark:bg-[oklch(52%_0.09_120/0.08)] rounded-[var(--radius-full)] blur-[140px]"
         />
         <motion.div
           animate={{
@@ -32,7 +32,7 @@ export default function Hero({ title, subtitle }: HeroProps) {
             y: [0, 40, 0]
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-[oklch(75%_0.14_310/0.15)] dark:bg-[oklch(75%_0.14_310/0.1)] rounded-[var(--radius-full)] blur-[140px]"
+          className="absolute bottom-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-[oklch(72%_0.06_75/0.12)] dark:bg-[oklch(72%_0.06_75/0.08)] rounded-[var(--radius-full)] blur-[140px]"
         />
 
         {/* Animated Noise/Grain Texture Overlay */}
@@ -66,14 +66,14 @@ export default function Hero({ title, subtitle }: HeroProps) {
                 {title?.includes("|") ? (
                   <>
                     {title.split("|")[0]} <br />
-                    <span className="text-shimmer drop-shadow-[0_0_20px_rgba(55,127,255,0.2)]">
+                    <span className="text-shimmer">
                       {title.split("|")[1]}
                     </span>
                   </>
                 ) : (
                   <>
                     {title?.replace("আপনাকে স্বাগতম", "").trim() || "সাহিত্যের অঙিনায়"} <br />
-                    <span className="text-shimmer drop-shadow-[0_0_20px_rgba(55,127,255,0.2)]">
+                    <span className="text-shimmer">
                       আপনাকে স্বাগতম
                     </span>
                   </>

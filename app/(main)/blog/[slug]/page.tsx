@@ -196,7 +196,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           </div>
 
           {/* Sidebar Area */}
-          <aside className="lg:col-span-4 space-y-20 lg:sticky lg:top-36">
+          <aside className="lg:col-span-4 space-y-20 lg:sticky lg:top-32">
 
             {/* Author Insight Card */}
             <div className="p-10 rounded-[3rem] bg-[var(--surface-50)] border border-[var(--glass-border)] shadow-sm space-y-10 group">
