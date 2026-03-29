@@ -1,5 +1,5 @@
 "use client"
-
+import Image from "next/image"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -192,7 +192,7 @@ export default function SpotlightForm({ initialData }: SpotlightFormProps) {
               </div>
               {watch("image") && (
                 <div className="relative aspect-square rounded-[var(--radius-lg)] overflow-hidden border border-[var(--glass-border)] shadow-lg bg-[var(--surface-200)]">
-                  <img src={watch("image")} alt="Preview" className="w-full h-full object-cover" />
+                  <Image src={watch("image")} alt="Preview" fill className="w-full h-full object-cover" unoptimized />
                 </div>
               )}
             </div>

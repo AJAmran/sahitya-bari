@@ -1,5 +1,5 @@
 "use client"
-
+import Image from "next/image"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -251,9 +251,17 @@ export default function ProductForm({ initialData }: ProductFormProps) {
               </div>
               {watch("images") && watch("images").split(',').filter(Boolean).length > 0 && (
                 <div className="grid grid-cols-2 gap-2">
-                   {watch("images").split(',').filter(Boolean).map((url:string, i:number) => (
-                       <img key={i} src={url.trim()} alt="Preview" className="w-full aspect-square object-cover rounded-[var(--radius-md)] border border-[var(--glass-border)]" />
-                   ))}
+                    {watch("images")?.split(',').filter(Boolean).map((url:string, i:number) => (
+                        <div key={i} className="relative w-full aspect-square rounded-[var(--radius-md)] overflow-hidden border border-[var(--glass-border)]">
+                          <Image
+                            src={url.trim()}
+                            alt="Preview"
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
+                    ))}
                 </div>
               )}
             </div>

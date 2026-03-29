@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -57,12 +58,13 @@ export default function Navbar({ youtubeUrl, siteTitle }: NavbarProps) {
             {/* Logo */}
             <Link href="/" className="flex items-center group min-h-[44px]">
               <div className="relative h-20 w-auto transition-all duration-300">
-                <img
+                <Image
                   src="/logo-horzontal.png"
                   alt="Sahitya Bari"
                   className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
                   width={420}
                   height={235}
+                  priority
                 />
               </div>
             </Link>

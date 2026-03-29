@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/mongodb';
+import Image from 'next/image';
 import VideoModel from '@/lib/models/Video';
 import { formatViews } from '@/lib/utils';
 import { notFound } from 'next/navigation';
@@ -91,10 +92,12 @@ export default async function VideoDetailPage({ params }: VideoDetailPageProps) 
                 <YouTubeEmbed embedId={video.youtubeId} />
               ) : (
                 <div className="relative w-full h-full">
-                  <img
+                  <Image
                     src={video.thumbnail}
                     alt={video.title}
+                    fill
                     className="w-full h-full object-cover"
+                    priority
                   />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                     <div className="liquid-glass px-8 py-4 rounded-[var(--radius-full)] border border-white/20 text-white font-black text-xs uppercase tracking-[0.3em] backdrop-blur-xl">
@@ -175,9 +178,10 @@ export default async function VideoDetailPage({ params }: VideoDetailPageProps) 
                       >
                         <div className="relative w-32 h-20 sm:w-40 sm:h-24 rounded-[var(--radius-xl)] overflow-hidden bg-[var(--surface-100)] flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
                           {rv.thumbnail ? (
-                            <img
+                            <Image
                               src={rv.thumbnail}
                               alt={rv.title}
+                              fill
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                           ) : (

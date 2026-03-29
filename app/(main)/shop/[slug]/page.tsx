@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/mongodb';
+import Image from 'next/image';
 import Product from '@/lib/models/Product';
 import { notFound } from 'next/navigation';
 import { 
@@ -60,10 +61,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           {/* Visual Showcase - Left Side */}
           <div className="lg:col-span-7 space-y-8">
             <div className="relative aspect-square md:aspect-[4/5] rounded-[3rem] overflow-hidden border border-[var(--glass-border)] bg-[var(--surface-50)] shadow-2xl shadow-black/5 group">
-                <img 
+                <Image 
                     src={product.images?.[0] || "/placeholder.png"} 
                     alt={product.name}
+                    fill
                     className="w-full h-full object-cover transition-transform duration-[2000ms] hover:scale-105"
+                    priority
                 />
                 <button className="absolute top-8 right-8 w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white hover:bg-[var(--primary)] hover:border-transparent transition-all shadow-xl">
                     <Heart size={24} />
@@ -74,7 +77,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className="grid grid-cols-4 gap-4">
                 {product.images?.map((img: string, i: number) => (
                     <div key={i} className={`aspect-square rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${i === 0 ? "border-[var(--primary)]" : "border-transparent opacity-60 hover:opacity-100"}`}>
-                        <img src={img} alt={`${product.name} view ${i}`} className="w-full h-full object-cover" />
+                        <Image 
+                            src={img} 
+                            alt={`${product.name} view ${i}`} 
+                            fill
+                            className="w-full h-full object-cover" 
+                        />
                     </div>
                 ))}
             </div>

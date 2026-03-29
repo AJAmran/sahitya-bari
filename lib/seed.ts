@@ -16,7 +16,7 @@ async function main() {
                 email,
                 password: hashedPassword,
                 role: 'ADMIN',
-                name: 'Admin User',
+                name: 'Sahitya Bari Official',
             }
         },
         { upsert: true, returnDocument: 'after' }

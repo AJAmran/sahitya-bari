@@ -71,8 +71,8 @@
    GOOGLE_CLIENT_ID=your_google_id
    GOOGLE_CLIENT_SECRET=your_google_secret
 
-   # AI Integration
-   GEMINI_API_KEY=your_gemini_api_key
+   # Smart Features Setup (Optional)
+   GEMINI_API_KEY=your_gen_api_key
 
    # YouTube/Google API (Optional for some features)
    GOOGLE_API_KEY=your_google_api_key

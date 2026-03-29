@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/mongodb';
+import Image from 'next/image';
 import Product from '@/lib/models/Product';
 import { ShoppingBag, ChevronRight, Star, ShoppingCart, Filter, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -54,10 +55,12 @@ export default async function ShopPage() {
           <section className="relative group">
             <Link href={`/shop/${featuredProduct.slug}`} className="block">
                 <div className="relative aspect-[21/9] md:aspect-[24/10] rounded-[3rem] overflow-hidden border border-[var(--glass-border)] shadow-2xl shadow-black/10 group-hover:shadow-[var(--primary)]/10 transition-all duration-1000">
-                    <img 
+                    <Image 
                         src={featuredProduct.images?.[0] || "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"} 
                         alt={featuredProduct.name}
+                        fill
                         className="w-full h-full object-cover transition-transform duration-[4000ms] group-hover:scale-105"
+                        priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent p-12 md:p-20 flex flex-col justify-center gap-6">
                         <div className="flex items-center gap-3">
@@ -108,9 +111,10 @@ export default async function ShopPage() {
                 >
                     <Link href={`/shop/${product.slug}`} className="space-y-6 block">
                         <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-[var(--glass-border)] bg-[var(--surface-50)] shadow-sm group-hover:shadow-2xl group-hover:shadow-black/10 group-hover:-translate-y-2 transition-all duration-700">
-                             <img 
+                             <Image 
                                 src={product.images?.[0] || "/placeholder.png"} 
                                 alt={product.name}
+                                fill
                                 className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110"
                             />
                             {/* Overlay hover effect */}

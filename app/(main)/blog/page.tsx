@@ -1,4 +1,5 @@
 import BlogCard from '@/components/BlogCard';
+import Link from 'next/link';
 import { BookOpen, Search } from 'lucide-react';
 import dbConnect from '@/lib/mongodb';
 import BlogPost from '@/lib/models/BlogPost';
@@ -148,7 +149,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
 
         <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-hide flex-wrap justify-center md:justify-start">
           {allCategories.map((category) => (
-            <a
+            <Link
               key={category}
               href={category === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(category)}`}
               className={`px-4 py-2 rounded-[var(--radius-full)] text-xs font-bold transition-all whitespace-nowrap uppercase tracking-wider ${category === selectedCategory
@@ -157,7 +158,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
                 }`}
             >
               {category}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -174,7 +175,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
           <BookOpen size={48} className="mx-auto text-[var(--foreground)]/10 mb-4" />
           <p className="text-[var(--foreground)]/40 font-bold uppercase tracking-widest text-sm">No articles found</p>
           {searchQuery && (
-            <a href="/blog" className="mt-4 inline-block text-[var(--primary)] text-sm font-bold hover:underline">Clear search</a>
+            <Link href="/blog" className="mt-4 inline-block text-[var(--primary)] text-sm font-bold hover:underline">Clear search</Link>
           )}
         </div>
       )}

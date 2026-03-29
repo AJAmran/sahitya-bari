@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Plus, ShoppingBag, Edit2, Trash2, ExternalLink, Package, Star, Eye } from "lucide-react"
 import { getProducts } from "@/app/actions/product"
 import { format } from "date-fns"
@@ -32,9 +33,10 @@ export default async function AdminProductsPage() {
               {/* Product Card Image */}
               <div className="relative aspect-[4/5] overflow-hidden bg-[var(--surface-200)]">
                 {product.images?.[0] ? (
-                  <img
+                  <Image
                     src={product.images[0]}
                     alt={product.name}
+                    fill
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 ) : (

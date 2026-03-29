@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { auth, signOut } from "@/lib/auth-node";
 import { redirect } from "next/navigation";
 import {
@@ -41,10 +42,12 @@ export default async function AdminLayout({
         <div className="p-8 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-12 h-12 rounded-[1.25rem] overflow-hidden shadow-2xl shadow-[var(--primary)]/20 transition-all duration-500 group-hover:scale-105 group-hover:rotate-3 active:scale-95">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Logo"
                 className="w-full h-full object-cover"
+                width={48}
+                height={48}
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
             </div>

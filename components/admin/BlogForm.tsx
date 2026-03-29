@@ -1,5 +1,5 @@
 "use client"
-
+import Image from "next/image"
 import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -302,7 +302,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
               </div>
               {watch("coverImage") && (
                 <div className="relative aspect-video rounded-[var(--radius-lg)] overflow-hidden border border-[var(--glass-border)] shadow-lg bg-[var(--surface-200)]">
-                  <img src={watch("coverImage")} alt="Preview" className="w-full h-full object-cover" />
+                  <Image src={watch("coverImage")} alt="Preview" fill className="w-full h-full object-cover" />
                 </div>
               )}
             </div>

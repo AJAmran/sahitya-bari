@@ -16,10 +16,10 @@ const videoSchema = z.object({
 })
 
 function extractYoutubeId(url: string | null | undefined) {
-  if (!url) return null;
+  if (!url) return undefined;
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  return (match && match[2].length === 11) ? match[2] : undefined;
 }
 
 export async function createVideo(formData: FormData) {
@@ -120,7 +120,7 @@ export async function updateVideo(id: string, formData: FormData) {
   await dbConnect()
   await Video.findByIdAndUpdate(id, {
     title: data.title,
-    youtubeId: youtubeId || null,
+    youtubeId: youtubeId || undefined,
     description: data.description || "",
     category: data.category,
     isUpcoming: data.isUpcoming,

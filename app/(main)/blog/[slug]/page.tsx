@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/mongodb';
+import Image from 'next/image';
 import BlogPost from '@/lib/models/BlogPost';
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
@@ -144,10 +145,12 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className="relative aspect-[16/9] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/10 border border-[var(--glass-border)] group"
               >
-                <img
+                <Image
                   src={blog.coverImage}
                   alt={blog.title}
+                  fill
                   className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-60" />
               </MotionDiv>
@@ -241,9 +244,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                     <div key={post.id} className="group cursor-pointer">
                       <Link href={`/blog/${post.slug}`} className="space-y-4 block">
                         <div className="relative aspect-[16/10] rounded-[1.5rem] overflow-hidden border border-[var(--glass-border)]">
-                          <img
+                          <Image
                             src={post.coverImage || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c'}
                             alt={post.title}
+                            fill
                             className="w-full h-full object-cover grayscale-[100%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                           />
                           <div className="absolute top-4 left-4">
@@ -256,7 +260,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                           </h4>
                           <div className="flex items-center gap-3 text-[9px] font-black text-[var(--foreground)]/60 uppercase tracking-[0.2em]">
                             <span className="w-4 h-[1px] bg-[var(--glass-border)]"></span>
-                            <span>{format(new Date(post.publishedAt), 'MMM YYYY')}</span>
+                            <span>{format(new Date(post.publishedAt), 'MMM yyyy')}</span>
                           </div>
                         </div>
                       </Link>
