@@ -14,7 +14,8 @@ import {
   ShieldCheck, 
   TrendingUp, 
   Cpu, 
-  ShoppingBag 
+  ShoppingBag,
+  PackageCheck
 } from "lucide-react";
 import AdminSidebarItem from "./AdminSidebarItem";
 import { ThemeToggle } from "@/features/layout/components/ThemeToggle";
@@ -65,6 +66,7 @@ export default function AdminSidebar({ session }: AdminSidebarProps) {
           <AdminSidebarItem href="/admin/comments" icon={<MessageSquare size={18} />} label="Comments" />
           <AdminSidebarItem href="/admin/spotlight" icon={<Star size={18} />} label="Spotlight" />
           <AdminSidebarItem href="/admin/products" icon={<ShoppingBag size={18} />} label="Store" />
+          <AdminSidebarItem href="/admin/orders" icon={<PackageCheck size={18} />} label="Orders" />
         </div>
 
         <div className="px-3 pb-3 pt-8 flex items-center gap-2 text-[10px] font-black text-[var(--foreground)]/30 uppercase tracking-[0.25em]">

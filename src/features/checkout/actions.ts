@@ -4,6 +4,41 @@ import dbConnect from '@/lib/mongodb';
 import Order from '@/lib/models/Order';
 import { revalidatePath } from 'next/cache';
 
+// Fetch all orders for admin
+export async function getAdminOrders() {
+  try {
+    await dbConnect();
+    // Sort logic usually is latest first
+    const orders = await Order.find().sort({ createdAt: -1 }).lean();
+    return { success: true, orders: JSON.parse(JSON.stringify(orders)) };
+  } catch (error: any) {
+    console.error("Failed to get orders:", error);
+    return { success: false, error: error.message || "Failed to fetch orders" };
+  }
+}
+
+// Update order status
+export async function updateOrderStatus(orderId: string, status: string) {
+  try {
+    await dbConnect();
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { $set: { status, updatedAt: new Date() } },
+      { new: true }
+    );
+    
+    if (!updatedOrder) {
+      return { success: false, error: "Order not found" };
+    }
+    
+    revalidatePath('/admin/orders');
+    return { success: true, order: JSON.parse(JSON.stringify(updatedOrder)) };
+  } catch (error: any) {
+    console.error("Failed to update order status:", error);
+    return { success: false, error: error.message || "Failed to update order" };
+  }
+}
+
 export async function createOrder(orderData: any) {
   try {
     await dbConnect();
