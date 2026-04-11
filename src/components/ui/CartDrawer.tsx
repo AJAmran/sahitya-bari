@@ -72,7 +72,7 @@ export default function CartDrawer() {
               <div key={item.id} className="flex gap-4 p-4 rounded-2xl bg-[var(--surface-50)] border border-[var(--glass-border)]">
                 <div className="relative w-20 h-24 rounded-xl overflow-hidden shrink-0 bg-[var(--surface-100)]">
                   {item.image ? (
-                    <Image src={item.image} alt={item.name} fill className="object-cover" />
+                    <Image src={item.image} alt={item.name} fill sizes="80px" className="object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[var(--foreground)]/20">img</div>
                   )}

@@ -49,7 +49,10 @@ export async function createOrder(orderData: any) {
     // to prevent tampering before creating the order.
 
     const newOrder = new Order({
-      items: orderData.items,
+      items: orderData.items.map((item: any) => ({
+        ...item,
+        product: item.productId,
+      })),
       subtotal: orderData.subtotal,
       shippingFee: orderData.shippingFee,
       total: orderData.total,
