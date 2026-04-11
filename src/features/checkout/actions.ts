@@ -3,10 +3,12 @@
 import dbConnect from '@/lib/mongodb';
 import Order from '@/lib/models/Order';
 import { revalidatePath } from 'next/cache';
+import { connection } from 'next/server';
 
 // Fetch all orders for admin
 export async function getAdminOrders() {
   try {
+    await connection();
     await dbConnect();
     // Sort logic usually is latest first
     const orders = await Order.find().sort({ createdAt: -1 }).lean();
