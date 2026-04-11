@@ -60,7 +60,7 @@ export default function ProductCard({ product, idx }: ProductCardProps) {
           <div className="flex items-center justify-between">
             <span className="text-lg font-black font-mono tracking-tight text-[var(--foreground)]">৳{product.price}</span>
             <span className="flex items-center gap-1 text-[0.65rem] font-black uppercase tracking-wider text-[var(--primary)] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-400">
-              Shop <ArrowRight size={10} />
+              Details <ArrowRight size={10} />
             </span>
           </div>
         </div>

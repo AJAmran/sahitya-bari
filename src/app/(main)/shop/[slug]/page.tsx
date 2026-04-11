@@ -2,21 +2,17 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { 
   ArrowLeft, 
-  ShoppingBag, 
   Star, 
   ShieldCheck, 
   Truck, 
   RotateCcw, 
   ChevronRight,
-  Minus,
-  Plus,
-  Share2,
   Heart
 } from 'lucide-react';
 import Link from 'next/link';
-import { MotionDiv } from '@/components/Motion';
 import type { Metadata } from 'next';
 import { getProduct, getRelatedProducts } from '@/features/products/api';
+import AddToCartPanel from '@/features/products/components/AddToCartPanel';
 
 interface ProductDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -114,60 +110,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 {product.description}
             </p>
 
-            {/* Selection Grid */}
-            <div className="space-y-10 py-10 border-y border-[var(--glass-border)]">
-                {/* Size Selection */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--foreground)]/40">Select Dimension</label>
-                        <button className="text-[10px] font-black text-[var(--primary)] uppercase tracking-widest border-b border-[var(--primary)]/20 hover:border-[var(--primary)] transition-all">Size Blueprint</button>
-                    </div>
-                    <div className="flex flex-wrap gap-3">
-                        {product.sizes?.map((size: string) => (
-                            <button key={size} className="min-w-[56px] h-[56px] rounded-2xl border border-[var(--glass-border)] flex items-center justify-center text-xs font-black hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/5 active:scale-90 transition-all">
-                                {size}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Color Spectrum */}
-                <div className="space-y-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--foreground)]/40">Color Spectrum</label>
-                    <div className="flex flex-wrap gap-4">
-                        {product.colors?.map((color: string) => (
-                            <button key={color} className="group relative">
-                                <div className={`w-10 h-10 rounded-full border-2 border-white shadow-xl transition-all group-hover:scale-110 active:scale-90 ${color.toLowerCase() === 'black' ? 'bg-black' : color.toLowerCase() === 'white' ? 'bg-white border-gray-200' : 'bg-gray-400'}`} />
-                                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[8px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{color}</span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Quantity Controller */}
-                <div className="space-y-4 pt-4">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--foreground)]/40">Quantity Selection</label>
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-1 p-1 bg-[var(--surface-200)]/50 rounded-2xl border border-[var(--glass-border)]">
-                            <button className="w-10 h-10 rounded-xl hover:bg-white/50 transition-all flex items-center justify-center text-[var(--foreground)]/40 hover:text-[var(--primary)]"><Minus size={16} /></button>
-                            <span className="w-12 text-center text-base font-black">1</span>
-                            <button className="w-10 h-10 rounded-xl hover:bg-white/50 transition-all flex items-center justify-center text-[var(--foreground)]/40 hover:text-[var(--primary)]"><Plus size={16} /></button>
-                        </div>
-                        <p className="text-[10px] font-bold text-[var(--foreground)]/40 uppercase tracking-widest">In stock & ready to ship</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                 <button className="md:col-span-9 h-[72px] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white rounded-[1.25rem] flex items-center justify-center gap-4 font-black text-sm uppercase tracking-[.3em] shadow-2xl shadow-[var(--primary)]/30 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                    <ShoppingBag size={20} />
-                    Begin Acquisition
-                 </button>
-                 <button className="md:col-span-3 h-[72px] rounded-[1.25rem] bg-[var(--surface-100)] border border-[var(--glass-border)] flex items-center justify-center text-[var(--foreground)]/40 hover:text-[var(--primary)] hover:border-[var(--primary)]/30 transition-all">
-                    <Share2 size={24} />
-                 </button>
-            </div>
+            {/* Selection Grid and Action Buttons via Client Component */}
+            <AddToCartPanel product={product} />
 
             {/* Trust Badges */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[var(--glass-border)]">

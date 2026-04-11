@@ -8,6 +8,8 @@ import { Menu, X, Youtube } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
+import { ShoppingBag } from 'lucide-react';
+import { useCart } from '@/components/providers/CartProvider';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -25,6 +27,7 @@ export default function Navbar({ youtubeUrl, siteTitle }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const { openCart, getCartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -53,11 +56,38 @@ export default function Navbar({ youtubeUrl, siteTitle }: NavbarProps) {
             {/* Right Side Icons */}
             <div className="hidden md:flex items-center gap-3">
               <YoutubeLink url={youtubeUrl} />
+              
+              <button 
+                onClick={openCart}
+                className="relative w-10 h-10 flex items-center justify-center rounded-full bg-[var(--surface-100)] text-[var(--foreground)]/70 hover:text-[var(--primary)] hover:bg-[var(--surface-200)] shadow-md transition-all duration-300"
+              >
+                <ShoppingBag size={18} />
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--primary)] text-white text-[9px] font-black flex items-center justify-center animate-in zoom-in">
+                    {getCartCount()}
+                  </span>
+                )}
+              </button>
+
               <ThemeToggle className="w-10 h-10 rounded-full bg-[var(--surface-100)] border border-[var(--glass-border)] hover:bg-[var(--surface-200)] shadow-md" />
             </div>
 
-            {/* Mobile Menu Button */}
-            <MobileMenuButton isOpen={isOpen} setIsOpen={setIsOpen} />
+            {/* Mobile Menu Button / Cart */}
+            <div className="flex md:hidden items-center gap-3">
+              <button 
+                onClick={openCart}
+                className="relative w-11 h-11 flex items-center justify-center rounded-full bg-[var(--surface-100)] text-[var(--foreground)] hover:bg-[var(--surface-200)] transition-colors"
+                aria-label="Open Cart"
+              >
+                <ShoppingBag size={20} />
+                {getCartCount() > 0 && (
+                  <span className="absolute 1 top-0 right-0 w-4 h-4 rounded-full bg-[var(--primary)] text-white text-[9px] font-black flex items-center justify-center">
+                    {getCartCount()}
+                  </span>
+                )}
+              </button>
+              <MobileMenuButton isOpen={isOpen} setIsOpen={setIsOpen} />
+            </div>
           </div>
 
           {/* Mobile Menu Content */}

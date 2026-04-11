@@ -1,7 +1,8 @@
 import Footer from "@/features/layout/components/Footer";
 import Navbar from "@/features/layout/components/Navbar";
 import { getSiteSettings } from "@/features/admin/api";
-
+import { CartProvider } from "@/components/providers/CartProvider";
+import CartDrawer from "@/components/ui/CartDrawer";
 export default async function MainLayout({
     children
 }: {
@@ -10,7 +11,8 @@ export default async function MainLayout({
     const settings = await getSiteSettings();
 
     return (
-        <>
+        <CartProvider>
+            <CartDrawer />
             <Navbar
                 youtubeUrl={settings.youtubeUrl}
                 siteTitle={settings.siteTitle}
@@ -20,6 +22,6 @@ export default async function MainLayout({
                 youtubeUrl={settings.youtubeUrl}
                 facebookUrl={settings.facebookUrl}
             />
-        </>
+        </CartProvider>
     );
 }
