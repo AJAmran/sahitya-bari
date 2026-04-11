@@ -1,10 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
+  turbopack: {},
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
+
   typescript: {
     ignoreBuildErrors: false,
   },
