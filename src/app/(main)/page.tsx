@@ -10,6 +10,7 @@ import UpcomingVideos from '@/features/home/components/UpcomingVideos';
 import PopularVideos from '@/features/home/components/PopularVideos';
 import LatestBlogs from '@/features/home/components/LatestBlogs';
 import NewsletterSection from '@/features/home/components/NewsletterSection';
+import ShopShowcase from '@/features/home/components/ShopShowcase';
 
 export default async function Home() {
   const settings = await getSiteSettings();
@@ -36,6 +37,11 @@ export default async function Home() {
       </Suspense>
 
       <AudioSection />
+
+      {/* Official Merchandise */}
+      <Suspense fallback={<HomeSectionFallback label="merchandise" />}>
+        <ShopShowcase />
+      </Suspense>
 
       {/* Blog Section */}
       <Suspense fallback={<HomeSectionFallback label="latest stories" />}>

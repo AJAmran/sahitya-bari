@@ -7,8 +7,8 @@ import { connection } from 'next/server';
 
 // Fetch all orders for admin
 export async function getAdminOrders() {
+  await connection();
   try {
-    await connection();
     await dbConnect();
     // Sort logic usually is latest first
     const orders = await Order.find().sort({ createdAt: -1 }).lean();

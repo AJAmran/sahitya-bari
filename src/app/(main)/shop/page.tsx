@@ -51,19 +51,27 @@ export default async function ShopPage() {
         {featuredProduct && <FeaturedProduct product={featuredProduct} />}
 
         {/* Categories & Filter Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-5 border-y border-[var(--glass-border)]">
-            <div className="flex flex-wrap gap-2 items-center">
-                <span className="admin-label opacity-40 mr-2">Select Domain:</span>
-                {['All Essentials', 'Clothing', 'Books', 'Curated Art'].map((cat, i) => (
-                    <button key={cat} className={`px-4 py-1.5 rounded-full text-[0.65rem] font-black uppercase tracking-widest transition-all ${i === 0 ? "bg-[var(--foreground)] text-[var(--background)] shadow-[var(--shadow-sm)]" : "hover:bg-[var(--surface-100)] border border-[var(--glass-border)] text-[var(--foreground)]/55"}`}>
-                        {cat}
-                    </button>
-                ))}
-            </div>
-            <div className="flex items-center gap-3 text-[0.65rem] font-black uppercase tracking-widest text-[var(--foreground)]/40">
-                <Filter size={12} />
-                <span>Sort: Latest</span>
-            </div>
+        <div className="sticky top-[72px] z-30 py-4 bg-[var(--background)]/80 backdrop-blur-2xl border-y border-[var(--glass-border)] transition-all">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-2 items-center">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--foreground)]/40 mr-2 flex items-center gap-2">
+                    <Filter size={12} /> Elements
+                  </span>
+                  {['All Collection', 'T-Shirts', 'Books', 'Art'].map((cat, i) => (
+                      <button key={cat} className={`h-8 sm:h-9 px-4 sm:px-5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${i === 0 ? "bg-[var(--foreground)] text-[var(--background)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] active:scale-95" : "bg-[var(--surface-100)] border border-[var(--glass-border)] text-[var(--foreground)]/60 hover:text-[var(--primary)] hover:border-[var(--primary)]/30 hover:bg-[var(--surface-200)] active:scale-95"}`}>
+                          {cat}
+                      </button>
+                  ))}
+              </div>
+              <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--foreground)]/40">Sort By</span>
+                  <select className="h-9 px-4 rounded-full bg-[var(--surface-100)] border border-[var(--glass-border)] text-[10px] font-black uppercase tracking-widest text-[var(--foreground)] focus:outline-none focus:border-[var(--primary)]/50 transition-colors appearance-none cursor-pointer">
+                    <option>Latest Drops</option>
+                    <option>Price: Ascending</option>
+                    <option>Price: Descending</option>
+                  </select>
+              </div>
+          </div>
         </div>
 
         {/* Product Grid */}
